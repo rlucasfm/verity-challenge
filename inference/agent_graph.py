@@ -6,13 +6,13 @@ from langgraph.prebuilt import create_react_agent
 
 class AgentGraphInferencer:
     def __init__(self):
+        db_uri = "postgresql://postgres:postgres@localhost:5432/verity"#"sqlite:///database.db"
         self.llm = init_chat_model("gpt-4o-mini", model_provider="openai")
         self.prompt_template = hub.pull("langchain-ai/sql-agent-system-prompt")
-        self.db = SQLDatabase.from_uri("sqlite:///database.db")
-        
+        self.db = SQLDatabase.from_uri(db_uri)
+        self.system_message = self.prompt_template.format(dialect=self.db.dialect, top_k=5)
         toolkit = SQLDatabaseToolkit(db=self.db, llm=self.llm)
         self.tools = toolkit.get_tools()
-        self.system_message = self.prompt_template.format(dialect="SQLite", top_k=5)
         
     def infer(self, query: str):
         agent_executor = create_react_agent(self.llm, self.tools, prompt=self.system_message)

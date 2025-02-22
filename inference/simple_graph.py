@@ -20,7 +20,8 @@ class QueryOutput(TypedDict):
 
 class SimpleGraphInferencer:
     def __init__(self):
-        self.db = SQLDatabase.from_uri("sqlite:///database.db")
+        db_uri = "postgresql://postgres:postgres@localhost:5432/verity"#"sqlite:///database.db"
+        self.db = SQLDatabase.from_uri(db_uri)
         self.llm = init_chat_model("gpt-4o-mini", model_provider="openai")
         self.query_prompt_template = hub.pull("langchain-ai/sql-query-system-prompt")
 

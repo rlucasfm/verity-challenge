@@ -39,8 +39,14 @@ O código em `sections` define as visões do Streamlit para a Interface de Usuá
 
 O arquivo `app.py` define o entrypoint para o Streamlit e a interface gráfica do agente de IA.
 
+### docker-compose.yml
+Este arquivo define um container Docker para o banco de dados PostgreSQL e para o utilitário PgAdmin para gerenciar o banco de dados numa interface visual.
+
+### database_build.sql
+Inclui um arquivo SQL de inicialização para o banco de dados. Cria as tabelas e as popula com alguma informação.
+
 ### database.db
-Banco de dados em SQLite para facilitar a exemplificação da solução proposta.
+Banco de dados em SQLite para facilitar a exemplificação da solução proposta, caso queira.
 O banco está estruturado da seguinte forma:
 
 * **Cliente**: contém as informações dos clientes: id, nome, endereço, telefone, email e saldo.
